@@ -6,7 +6,7 @@ const password = ref('')
 </script>
 
 <template>
-    <body>
+    <body class="bg-cover h-screen bg-gradient-to-br from-sky-200 to-rose-100">
     <div class="grid grid-cols-1 gap-1">
         <div >
             <img class="mx-auto h-40 w-auto" src="@/assets/logo.png">
