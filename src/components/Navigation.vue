@@ -8,56 +8,66 @@ import camera from './icons/camera.vue';
 import users from './icons/users.vue';
 import docs from './icons/docs.vue';
 import setting from './icons/setting.vue'
-const expanded = ref(true)
-
+import rightArrow from './icons/rightArrow.vue'
+const menu_expanded = ref(false)
+const item_chosen = ref('')
 const menuItems = ref([
-        { name: 'Home', link: '/', icon: home},
-        { name: 'Chart', link: '/chart', icon: chart},
-        { name: 'Apartment', link: '/apartment', icon: apartment},
-        { name: 'Camera', link: '/camera', icon: camera},
-        { name: 'User', link: '/user', icon: users},
-        { name: 'Contract', link: '/contract', icon: docs},
+        { name: 'Home', link: '/', icon: home, hierarchy: false},
+        { name: 'Chart', link: '/chart', icon: chart, hierarchy: false},
+        { name: 'Apartment', link: '/apartment', icon: apartment, hierarchy: false},
+        { name: 'Camera', link: '/camera', icon: camera, hierarchy: false},
+        { name: 'User', link: '/user', icon: users, hierarchy: false},
+        { name: 'Contract', link: '/contract', icon: docs, hierarchy: false},
       ])
 
 function toggle () {
-    expanded.value = !expanded.value
+    menu_expanded.value = !menu_expanded.value
 }
+function toggle_menu (name) {
+    item_chosen.value = name
+    console.log(name);
+    
+}
+
 
 </script>
 <template>
-    <div v-if="!expanded">
+    <div v-if="!menu_expanded">
         <button @click="toggle" class="transform transition duration-500 ease-in-out hover:scale-110 mt-4 mx-2 bnt ">
             <chevron></chevron>
         </button>
     </div>
 
-    <div v-if="expanded">
-        <div class="h-screen flex-row w-44 bg-white rounded-lg items-center justify-center shadow-md border-r-2 border-gradient-br-blue-green-gray-900 border-transparent">
+    <div v-if="menu_expanded">
+        <div class="fixed ml-2 shadow-xl h-screen flex-row w-36 bg-white rounded-lg items-center justify-center border-y-2 border-gradient-br-blue-green-gray-900 border-transparent">
             <div class="space-y-1 p-4 justify-center items-center grid grid-flow-row pr-6 mx-6 pb-6 border-b-2">
-                <button @click="toggle" class="transform transition duration-500 ease-in-out hover:scale-125 mt-4 mx-2 bnt">
-                    <chevron ></chevron>
+                <button @click="toggle(menu_expanded)" class="transform transition duration-500 ease-in-out hover:scale-125 bnt">
+                    <chevron class="transform rotate-180" ></chevron>
                 </button>
                 <img src="@/assets/logo.png" class=" w-28 mb-2"/>
             </div>
-            <div class="space-y-6 pt-6 font-sans">
-                <div v-for="item of menuItems" class="w-36">
-                    <button class="ml-4 p-2 transform transition duration-500 ease-in-out hover:scale-110 justify-center text-left font-sans w-full rounded-lg hover:border-y-2 hover:border-gradient-tl-blue-green-gray-900 border-transparent">
-                        <div class="grid grid-flow-col text-gray-600 ">
+            <div class="space-y-6 pt-6 font-sans mb-28">
+                <div v-for="item of menuItems" class="w-full">
+                    <button @click="toggle_menu(item.name)" v-if="item.name == item_chosen" class="w-4/5 ml-4 p-2 transform transition duration-500 ease-in-out hover:scale-110 justify-start font-sans rounded-lg hover:border-y-2 hover:border-gradient-tl-blue-green-gray-900 border-transparent bg-gradient-to-br from-sky-300 to-green-300">
+                        <div class="text-gray-600">
                             <component :is="item.icon"></component>
-                            {{ item.name }}
+                            <div class="text-left my-2">{{ item.name }}</div>
+                        </div>
+                    </button>
+                    <button @click="toggle_menu(item.name)" v-else class="w-4/5 ml-4 p-2 transform transition duration-500 ease-in-out hover:scale-110 justify-start font-sans rounded-lg hover:border-y-2 hover:border-gradient-tl-blue-green-gray-900 border-transparent">
+                        <div class="text-gray-600">
+                            <component :is="item.icon"></component>
+                            <div class="text-left my-2">{{ item.name }}</div>
                         </div>
                     </button>
                 </div>
             </div>
-            <div class="h-1/3 m-6">
-                <div class="w-full h-full justify-center items-center grid grid-flow-col place-content-end">
-                    <button class="transform hover:rotate-90 hover:scale-110">
+            <div class="flex justify-center">
+                <div class="flex justify-center border-t-2 pt-5 w-2/3">
+                    <button class="transform hover:rotate-90 hover:scale-110" alt="Settings">
                         <setting></setting>
                     </button>
                 </div>
-            </div>
-            <div class="h-6 m-6">
-                <div class="border-t-2"></div>
             </div>
         </div>
     </div>
@@ -72,13 +82,13 @@ function toggle () {
 }
 .border-gradient-br-blue-green-gray-900 {
   background: linear-gradient(to right, #ffffff, #ffffff),
-    linear-gradient(to bottom right, #60A5FA, #4ADE80);
+    linear-gradient(to bottom right, #A2D5AB, #39EAE9);
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
 }
 .hover\:border-gradient-tl-blue-green-gray-900:hover {
   background: linear-gradient(to right, #ffffff, #ffffff),
-    linear-gradient(to bottom right, #60A5FA, #4ADE80);
+    linear-gradient(to bottom right, #A2D5AB, #39EAE9);
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
 }

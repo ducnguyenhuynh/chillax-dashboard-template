@@ -2,6 +2,11 @@
 import { ref, onMounted } from 'vue'
 const email = ref('')
 const password = ref('')
+const isUser = ref(false)
+
+function login() {
+    isUser.value = true
+}
 
 </script>
 

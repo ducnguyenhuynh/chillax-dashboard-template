@@ -1,13 +1,16 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
+import { RouterLink, RouterView} from 'vue-router'
 import Login from './views/Login.vue'
-import Home from './views/Home.vue'
+import HomeView from './views/HomeView.vue'
+import isUser from './views/Login.vue' 
+
 </script>
 
 <template>
   <body>
-    <!-- <Login></Login> -->
-    <Home></Home>
+    <!-- <Login v-if="!isUser.value" v-on="isUser"></Login> -->
+    <HomeView></HomeView>
   </body>
 </template>
 
