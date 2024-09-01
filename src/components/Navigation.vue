@@ -9,8 +9,13 @@ import users from './icons/users.vue';
 import docs from './icons/docs.vue';
 import setting from './icons/setting.vue'
 import rightArrow from './icons/rightArrow.vue'
+import chat from './icons/chat.vue'
+
+
+const emit = defineEmits(['is_menu_expanded'])
+
 const menu_expanded = ref(false)
-const item_chosen = ref('')
+const item_chosen = ref('Home')
 const menuItems = ref([
         { name: 'Home', link: '/', icon: home, hierarchy: false},
         { name: 'Chart', link: '/chart', icon: chart, hierarchy: false},
@@ -18,17 +23,20 @@ const menuItems = ref([
         { name: 'Camera', link: '/camera', icon: camera, hierarchy: false},
         { name: 'User', link: '/user', icon: users, hierarchy: false},
         { name: 'Contract', link: '/contract', icon: docs, hierarchy: false},
+        { name: 'Message', link: '/message', icon: chat, hierarchy: false},
+        
       ])
 
 function toggle () {
     menu_expanded.value = !menu_expanded.value
+    emit('is_menu_expanded', menu_expanded.value)
 }
+
 function toggle_menu (name) {
     item_chosen.value = name
     console.log(name);
     
 }
-
 
 </script>
 <template>
@@ -39,16 +47,16 @@ function toggle_menu (name) {
     </div>
 
     <div v-if="menu_expanded">
-        <div class="fixed ml-2 shadow-xl h-screen flex-row w-36 bg-white rounded-lg items-center justify-center border-y-2 border-gradient-br-blue-green-gray-900 border-transparent">
+        <div class="fixed ml-2 mt-1 shadow-2xl h-screen flex-row w-36 bg-white rounded-lg items-center justify-center border-y-4 border-gradient-br-blue-green-gray-900 border-transparent">
             <div class="space-y-1 p-4 justify-center items-center grid grid-flow-row pr-6 mx-6 pb-6 border-b-2">
-                <button @click="toggle(menu_expanded)" class="transform transition duration-500 ease-in-out hover:scale-125 bnt">
+                <button @click="toggle()" class="transform transition duration-500 ease-in-out hover:scale-125 bnt">
                     <chevron class="transform rotate-180" ></chevron>
                 </button>
                 <img src="@/assets/logo.png" class=" w-28 mb-2"/>
             </div>
-            <div class="space-y-6 pt-6 font-sans mb-28">
+            <div class="space-y-6 pt-6 font-sans mb-10">
                 <div v-for="item of menuItems" class="w-full">
-                    <button @click="toggle_menu(item.name)" v-if="item.name == item_chosen" class="w-4/5 ml-4 p-2 transform transition duration-500 ease-in-out hover:scale-110 justify-start font-sans rounded-lg hover:border-y-2 hover:border-gradient-tl-blue-green-gray-900 border-transparent bg-gradient-to-br from-sky-300 to-green-300">
+                    <button @click="toggle_menu(item.name)" v-if="item.name == item_chosen" class="w-4/5 mx-4 p-2 transform transition duration-500 ease-in-out hover:scale-110 justify-start font-sans rounded-lg hover:border-y-2 hover:border-gradient-tl-blue-green-gray-900 border-transparent bg-gradient-to-br from-sky-300 to-green-300">
                         <div class="text-gray-600">
                             <component :is="item.icon"></component>
                             <div class="text-left my-2">{{ item.name }}</div>

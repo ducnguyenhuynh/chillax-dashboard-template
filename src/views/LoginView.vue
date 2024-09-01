@@ -1,11 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router';
+import { ref } from 'vue'
 const email = ref('')
 const password = ref('')
 const isUser = ref(false)
+const router = useRouter();
 
 function login() {
     isUser.value = true
+    router.push({ name: 'Home' });
 }
 
 </script>
@@ -45,7 +48,7 @@ function login() {
                     </div>
 
                     <div>
-                        <button type="submit" class="flex w-full justify-center rounded-md bg-sky-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500">Login</button>
+                        <button @click="login()" type="button" class="flex w-full justify-center rounded-md bg-sky-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500">Login</button>
                     </div>
                     </form>
 
