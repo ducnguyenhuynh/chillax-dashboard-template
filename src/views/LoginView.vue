@@ -1,16 +1,17 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import { ref } from 'vue'
 const email = ref('')
 const password = ref('')
 const isUser = ref(false)
-const router = useRouter();
+
+const emit = defineEmits(['loginEmit'])
 
 function login() {
+    // verify password and email
     isUser.value = true
-    router.push({ name: 'Home' });
+    emit('loginEmit', isUser.value)
+    
 }
-
 </script>
 
 <template>
@@ -42,13 +43,13 @@ function login() {
                         </div>
                         </div>
                         <div class="mt-2">
-                            <input v-model="password" type="password" id="password"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-400 focus:border-sky-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-400 dark:focus:border-sky-400" placeholder="•••••••••" required />
+                            <input v-model="password" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-400 focus:border-sky-400 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-400 dark:focus:border-sky-400" placeholder="•••••••••" required />
                         </div>
                         
                     </div>
 
                     <div>
-                        <button @click="login()" type="button" class="flex w-full justify-center rounded-md bg-sky-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500">Login</button>
+                        <button type="button" class="flex w-full justify-center rounded-md bg-sky-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"  @click="login()">Login</button>
                     </div>
                     </form>
 
